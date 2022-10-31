@@ -1,0 +1,1374 @@
+<!-- created by Andrew Li (UBC) in April 2022-->
+<html lang="en">
+    <head>
+        <title>Experiment 1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script type="text/javascript" src="js/simplecanvas.js"></script>
+    </head>
+    <body>
+        <div id='introPage'>
+            <p id="title"><strong>Welcome to our experiment!</strong></p>
+            <div>
+                <p>
+                  Thank you for participating in our study. <br>
+                  Please turn off your phones and other distractions for the duration of this study. 
+                </p>
+                <p>
+                  When you are ready, click Start to begin.
+               </p>
+            </div>
+            <a href='javascript:showStimInstructions()' id='showStartB' class='button'>Start</a>
+          </div>
+          
+          <div id='introInstructions'>
+            <p id="title"><strong>Instructions</strong></p>
+          <div>
+              <p>In this study, you may see a graph covered by a black mask. <br>
+                  To see the graph, you need to move your mouse around the black mask to reveal the underlying content. You can use the example below to familiarize yourself with this task.</p>
+              <p>
+                  In the example below, there is a word covered by the black mask. <br> 
+                  You can use your mouse to find the word. Once you find the word, please type the word in the textbox below.
+              </p>
+          </div>
+          <canvas id='canvasTry'></canvas> 
+          <br>
+          <br>
+          <div>The word is: <input type="text" id='trial' autocomplete=off/> </div> 
+          <br>
+          <div>Once you are done, you can click Start the study.</div>
+          <br>
+          <a href='javascript:checkAnswers1()' id='showStartB' class='button'>Start</a>
+          </div>
+          
+          <div id='eiInstructions'>
+            <p id="title"><strong>What is Emotional Intelligence?</strong></p>
+          <div>
+            <p>Emotional intelligence is the ability to understand, use and manage your own emotions in positive ways to relieve stress, <br>
+              communicate effectively, empathize with others, overcome challenges and defuse conflict. 
+            </p>
+            <p>Emotional Intelligence helps you build stronger relationships, succeed at work, and achieve your career and personal goals.</p>
+            <p>It can also help you to connect with your feelings, turn intention into action, and make informed decisions about what matters to you.</p>
+            <p>Once you have read over the definition of Emotional Intelligence, click Next to continue.</p>
+            <br>
+            <a href='javascript:showIntroQuestions()' id='showStartB' class='button'>Next</a>
+          </div>
+          </div>
+          
+          <div id='stimClimate'>
+            <div>
+              <br>
+              <p>Below you will see a graph showing <strong>the global temperature in <sup>o</sup>F from 1880 to 2021.</strong> <br>
+                The graph is covered by a black mask. Move your mouse to reveal the graph. <br>
+                The y-axis shows the global temperature in fahrenheit, and the x-axis shows the years. <br><br>
+              <strong>Please view the graph carefully! You will need to answer some questions later.</strong> <br>
+                After you are done, click Next to continue. <br>
+              </p>
+            </div>
+            <canvas id='canvasClimate'></canvas> 
+            <br>
+            <a href='javascript:showAbout()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='stimNeutral'>
+            <div>
+              <br>
+              <p>Below you will see a graph showing <strong>some values from 1880 to 2021.</strong> <br>
+                The graph is covered by a black mask. Move your mouse to reveal the graph. <br>
+                The y-axis shows the values, and the x-axis shows the years. <br><br>
+                <strong>Please view the graph carefully! You will need to answer some questions later.</strong> <br>
+                After you are done, click Next to continue. <br>
+              </p>
+            </div>
+            <canvas id='canvasNeutral'></canvas> 
+            <br>
+            <a href='javascript:showAbout()' id='showStartB' class='button'>Next</a>
+          </div>
+
+          <div id='aboutQuestion'>
+            <br>
+                <strong>You must answer the following questions to continue the experiment</strong>
+                <br>
+                <p>What did you think the graph was about?</p>
+                <br> 
+                <textarea id="commentBoxQuestion" rows=5 cols=40 placeholder="I think the graph was about..."></textarea>
+                <br><br>
+                <a href='javascript:showIntroEI()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='introQuestions'>
+            <br>
+            <p>In this next part of the study, we are interested in measuring your Emotional Intelligence (EI). <br>
+              For each statement, please rate on a 5-point scale how much you personally agree or disagree with the statement. <br><br>
+            Click Next to continue</p>
+              <a href='javascript:showEIQuestions()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='questionsEI'>
+            <br>
+            <p><strong>You must answer all the following questions to continue the experiment. <br>
+            Indicate the extent to which each items applies to you on a 5-point scale.</strong></p>
+          
+            <p><strong>Questionnaire Progress</strong></p>
+            <progress value="0" max="100"></progress>  
+            <div id='question1'>
+              <p class='question'>1. I know when to speak about my personal problems to others.</p>
+              <input class="radio" type="radio" name="q1" value="strongly disagree" onclick = "checkAnswersPage1()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q1" value="disagree" onclick = "checkAnswersPage1()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q1" value="unsure" onclick = "checkAnswersPage1()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q1" value="agree" onclick = "checkAnswersPage1()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q1" value="strongly agree" onclick = "checkAnswersPage1()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question2'>
+              <p class='question'>2. When I am faced with obstacles, I remember times I faced similar obstacles and overcame them.</p>
+              <input class="radio" type="radio" name="q2" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q2" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q2" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q2" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q2" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question3'>
+              <p class='question'>3. I expect that I will do well on most things I try.</p>
+              <input class="radio" type="radio" name="q3" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q3" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q3" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q3" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q3" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question4'>
+              <p class='question'>4. Other people find it easy to confide in me.</p>
+              <input class="radio" type="radio" name="q4" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q4" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q4" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q4" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q4" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question5'>
+              <p class='question'>5. I find it hard to understand the non-verbal messages of other people.</p>
+              <input class="radio" type="radio" name="q5" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q5" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q5" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q5" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q5" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question6'>
+              <p class='question'>6. Some of the major events of my life have led me to re-evaluate what is important and not important.</p>
+              <input class="radio" type="radio" name="q6" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q6" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q6" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q6" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q6" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question7'>
+              <p class='question'>7. When my mood changes, I see new possibilities.</p>
+              <input class="radio" type="radio" name="q7" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q7" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q7" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q7" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q7" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+          
+            <div id='question8'>
+              <p class='question'>8. Emotions are one of the things that make my life worth living.</p>
+              <input class="radio" type="radio" name="q8" value="strongly disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q8" value="disagree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q8" value="unsure" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q8" value="agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q8" value="strongly agree" onclick = "checkAnswersPage1()" style="display: inline-block;vertical-align: baseline;"> Strongly Agree</input>
+            </div>
+            <br>
+            <a href='javascript:showQPage2()' id='showQuestionB1' class='button'>Next</a>
+          </div>
+          
+          <div id='questionEI2'>
+            <br>
+            <p><strong>You must answer all the following questions to continue the experiment. <br>
+            Indicate the extent to which each items applies to you on a 5-point scale.</strong></p>
+            <p><strong>Questionnaire Progress</strong></p>
+            <progress value="25" max="100"></progress>  
+            <div id='question9'>
+              <p class='question'>9. I am aware of my emotions as I experience them.</p>
+              <input class="radio" type="radio" name="q9" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q9" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q9" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q9" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q9" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question10'>
+              <p class='question'>10. I expect good things to happen.</p>
+              <input class="radio" type="radio" name="q10" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q10" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q10" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q10" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q10" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question11'>
+              <p class='question'>11. I like to share my emotions with others.</p>
+              <input class="radio" type="radio" name="q11" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q11" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q11" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q11" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q11" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question12'>
+              <p class='question'>12. When I experience a positive emotion, I know how to make it last.</p>
+              <input class="radio" type="radio" name="q12" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q12" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q12" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q12" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q12" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question13'>
+              <p class='question'>13. I arrange events others enjoy.</p>
+              <input class="radio" type="radio" name="q13" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q13" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q13" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q13" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q13" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question14'>
+              <p class='question'>14. I seek out activities that make me happy.</p>
+              <input class="radio" type="radio" name="q14" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q14" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q14" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q14" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q14" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question15'>
+              <p class='question'>15. Please select ‘strongly agree’ to pass, you will not be compensated if you fail this check.</p>
+              <input class="radio" type="radio" name="a1" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a1" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a1" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a1" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a1" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question16'>
+              <p class='question'>16. I am aware of the non-verbal messages I send to others.</p>
+              <input class="radio" type="radio" name="q16" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q16" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q16" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q16" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q16" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question17'>
+              <p class='question'>17. I present myself in a way that makes a good impression on others.</p>
+              <input class="radio" type="radio" name="q17" value="strongly disagree" onclick = "checkAnswersPage2()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q17" value="disagree" onclick = "checkAnswersPage2()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q17" value="unsure" onclick = "checkAnswersPage2()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q17" value="agree" onclick = "checkAnswersPage2()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q17" value="strongly agree" onclick = "checkAnswersPage2()"> Strongly Agree</input>
+            </div>
+            <br>
+            <a href='javascript:showQPage3()' id='showQuestionB2' class='button'>Next</a>
+          </div>
+          
+          <div id='questionEI3'>
+            <p><strong>Questionnaire Progress</strong></p>
+            <p><strong>You must answer all the following questions to continue the experiment. <br>
+            Indicate the extent to which each items applies to you on a 5-point scale.</strong></p>
+            <p><strong>Questionnaire Progress</strong></p>
+            <progress value="50" max="100"></progress> 
+            <div id='question18'>
+              <p class='question'>18. When I am in a positive mood, solving problems is easy for me.</p>
+              <input class="radio" type="radio" name="q18" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q18" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q18" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q18" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q18" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question19'>
+              <p class='question'>19. By looking at their facial expressions, I recognize the emotions people are experiencing.</p>
+              <input class="radio" type="radio" name="q19" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q19" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q19" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q19" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q19" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question20'>
+              <p class='question'>20. Please select ‘strongly disagree’ to pass, you will not be compensated if you fail this check.</p>
+              <input class="radio" type="radio" name="a2" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a2" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a2" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a2" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="a2" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>
+          
+            <div id='question21'>
+              <p class='question'>21. When I am in a positive mood, I am able to come up with new ideas.</p>
+              <input class="radio" type="radio" name="q21" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q21" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q21" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q21" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q21" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>  
+          
+            <div id='question22'>
+              <p class='question'>22. I know why my emotions change.</p>
+              <input class="radio" type="radio" name="q22" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q22" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q22" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q22" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q22" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>  
+          
+            <div id='question23'>
+              <p class='question'>23. I have control over my emotions.</p>
+              <input class="radio" type="radio" name="q23" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q23" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q23" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q23" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q23" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>  
+          
+            <div id='question24'>
+              <p class='question'>24. I easily recognize my emotions as I experience them.</p>
+              <input class="radio" type="radio" name="q24" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q24" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q24" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q24" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q24" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>  
+          
+            <div id='question25'>
+              <p class='question'>25. I motivate myself by imagining a good outcome to tasks I take on.</p>
+              <input class="radio" type="radio" name="q25" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q25" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q25" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q25" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q25" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div>  
+          
+            <div id='question26'>
+              <p class='question'>26. I compliment others when they have done something well.</p>
+              <input class="radio" type="radio" name="q26" value="strongly disagree" onclick = "checkAnswersPage3()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q26" value="disagree" onclick = "checkAnswersPage3()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q26" value="unsure" onclick = "checkAnswersPage3()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q26" value="agree" onclick = "checkAnswersPage3()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q26" value="strongly agree" onclick = "checkAnswersPage3()"> Strongly Agree</input>
+            </div> 
+            <br>
+            <a href='javascript:showQPage4()' id='showQuestionB3' class='button'>Next</a>
+          </div>
+          
+          <div id='questionEI4'>
+            <br>
+            <p><strong>You must answer all the following questions to continue the experiment. <br>
+            Indicate the extent to which each items applies to you on a 5-point scale.</strong></p>
+            <p><strong>Questionnaire Progress</strong></p>
+            <progress value="75" max="100"></progress> 
+            <div id='question27'>
+              <p class='question'>27. I am aware of the non-verbal messages other people send.</p>
+              <input class="radio" type="radio" name="q27" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q27" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q27" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q27" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q27" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question28'>
+              <p class='question'>28. When another person tells me about an important event in his or her life, I almost feel as though I have experienced this event myself.</p>
+              <input class="radio" type="radio" name="q28" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q28" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q28" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q28" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q28" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question29'>
+              <p class='question'>29. When I feel a change in emotions, I tend to come up with new ideas.</p>
+              <input class="radio" type="radio" name="q29" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q29" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q29" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q29" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q29" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+            
+            <div id='question30'>
+              <p class='question'>30. When I am faced with a challenge, I give up because I believe I will fail.</p>
+              <input class="radio" type="radio" name="q30" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q30" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q30" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q30" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q30" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question31'>
+              <p class='question'>31. I know what other people are feeling just by looking at them.</p>
+              <input class="radio" type="radio" name="q31" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q31" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q31" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q31" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q31" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question32'>
+              <p class='question'>32. I help other people feel better when they are down.</p>
+              <input class="radio" type="radio" name="q32" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q32" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q32" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q32" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q32" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question33'>
+              <p class='question'>33. I use good moods to help myself keep trying in the face of obstacles.</p>
+              <input class="radio" type="radio" name="q33" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q33" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q33" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q33" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q33" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question34'>
+              <p class='question'>34. I can tell how people are feeling by listening to the tone of their voice.</p>
+              <input class="radio" type="radio" name="q34" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q34" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q34" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q34" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q34" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+          
+            <div id='question35'>
+              <p class='question'>35. It is difficult for me to understand why people feel the way they do.</p>
+              <input class="radio" type="radio" name="q35" value="strongly disagree" onclick = "checkAnswersPage4()"> Strongly Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q35" value="disagree" onclick = "checkAnswersPage4()"> Disagree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q35" value="unsure" onclick = "checkAnswersPage4()"> Unsure</input>  &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q35" value="agree" onclick = "checkAnswersPage4()"> Agree</input> &nbsp; &nbsp;
+              <input class="radio" type="radio" name="q35" value="strongly agree" onclick = "checkAnswersPage4()"> Strongly Agree</input>
+            </div> 
+            <br>
+            <a href='javascript:showDraw()' id='showQuestionB4' class='button'>Next</a>
+          </div>
+          
+          <div id='drawClimate'>
+            <br>
+            <p id="title"><strong>Instructions</strong></p>
+              <p>
+                Below is the same graph you saw, but without the <strong>temperature curve.</strong> <br>
+                Your task now is to draw the temperature curve from memory, <br>
+                and reproduce the graph from 1880 to 2021 as accurately as possible. <br>
+                To draw the curve, please click on the y-axis first, hold it, and drag the cursor across. <br>
+                Please draw the curve slowly. If you draw too fast, the curve will not be registered. <br>
+                You can use the Clear button to erase your drawing. <br><br>
+                Once you have finished drawing the graph, click Next to continue. 
+              </p>
+              <button class="button" id="clearCanvasSimple" type="button">Clear</button>
+
+              <div id='canvasSimpleDiv'></div>
+              <!-- <body onpageshow="prepareSimpleCanvas('canvasSimpleDiv')"> -->
+
+              <br>
+            <a href='javascript:showDemo()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='drawNeutral'>
+            <br>
+            <p id="title"><strong>Instructions</strong></p>
+            <p>
+              Below is the same graph you saw, but <strong>without the curve.</strong>  <br>
+              Your task now is to draw the curve from memory, <br>
+              and reproduce the graph from 1880 to 2021 as accurately as possible. <br>
+              To draw the curve, please click on the y-axis first, hold it, and drag the cursor across. <br>
+              Please draw the curve slowly. If you draw too fast, the curve will not be registered. <br>
+              You can use the Clear button to erase your drawing. <br><br>
+              Once you have finished drawing the graph, click Next to continue. 
+            </p>
+            <button class="button" id="clearCanvasSimple" type="button">Clear</button>
+
+            <div id='canvasSimpleDiv2'></div>
+            <!-- <body onpageshow="prepareSimpleCanvas('canvasSimpleDiv2')"> -->
+
+            <br>
+            <a href='javascript:showDemo()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='drawNoGraph'>
+            <br>
+            <p id="title"><strong>Instructions</strong></p>
+            <p>
+              Below is a blank graph. Your task is to draw a global temperature curve. <br>
+              Without looking it up, what do you think the temperature is from 1880 to 2021 in <sup>o</sup>F? <br>
+              To draw the curve, please click on the y-axis first, hold it, and drag the cursor across. <br>
+              Please draw the curve slowly. If you draw too fast, the curve will not be registered. <br>
+              You can use the Clear button to erase your drawing. <br><br>
+              Once you have finished drawing the graph, click Next to continue. 
+            </p>
+            <button class="button" id="clearCanvasSimple" type="button">Clear</button>
+
+            <div id='canvasSimpleDiv3'></div>
+            <!-- <body onpageshow="prepareSimpleCanvas('canvasSimpleDiv3')"> -->
+
+            <br>
+            <a href='javascript:showDemo()' id='showStartB' class='button'>Next</a>
+          </div>
+          
+          <div id='demographic'>
+            <br>
+            <p><strong>Please fill in the demographic information below. <br>
+            The data collected will be strictly anonymous and confidential.</strong></p>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'> Please select your gender:</p>
+              <input class="radioDemo" type="radio" name="gender" value="male" onclick = "checkAnswersPage5()"> Male</input> <br>
+              <input class="radioDemo" type="radio" name="gender" value="female" onclick = "checkAnswersPage5()"> Female</input> <br>
+              <input class="radioDemo" type="radio" name="gender" value="other" onclick = "checkAnswersPage5()"> others</input>  
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>What is your age?</p>
+              <input class="radioDemo" type="radio" name="age" value="18 - 24 years" onclick = "checkAnswersPage5()"> 18 - 24 years</input> <br>
+              <input class="radioDemo" type="radio" name="age" value="25 - 34 years" onclick = "checkAnswersPage5()"> 25 - 34 years</input> <br>
+              <input class="radioDemo" type="radio" name="age" value="35 - 44 years" onclick = "checkAnswersPage5()"> 35 - 44 years</input> <br>
+              <input class="radioDemo" type="radio" name="age" value="45 - 54 years" onclick = "checkAnswersPage5()"> 45 - 54 years</input> <br>
+              <input class="radioDemo" type="radio" name="age" value="55 - 70 years" onclick = "checkAnswersPage5()"> 55 - 70 years</input> <br>
+              <input class="radioDemo" type="radio" name="age" value="Above 70 years" onclick = "checkAnswersPage5()"> Above 70 years</input>
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'> Please select your ethnicity:</p>
+              <input class="radioDemo" type="radio" name="race" value="African American" onclick = "checkAnswersPage5()"> African American</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="Asian" onclick = "checkAnswersPage5()"> Asian</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="Caucasian (white)" onclick = "checkAnswersPage5()"> Caucasian (white)</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="East Indian" onclick = "checkAnswersPage5()"> East Indian</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="Hispanic/Latin American" onclick = "checkAnswersPage5()"> Hispanic/Latin American</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="Middle Eastern" onclick = "checkAnswersPage5()"> Middle Eastern</input> <br>
+              <input class="radioDemo" type="radio" name="race" value="Other" onclick = "checkAnswersPage5()"> Other</input>
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>Please select your highest level of education:</p>
+              <input class="radioDemo" type="radio" name="school" value="Did not complete high school" onclick = "checkAnswersPage5()"> Did not complete high school</input> <br>
+              <input class="radioDemo" type="radio" name="school" value="High school" onclick = "checkAnswersPage5()"> High school</input> <br>
+              <input class="radioDemo" type="radio" name="school" value="Some college" onclick = "checkAnswersPage5()"> Some college</input> <br>
+              <input class="radioDemo" type="radio" name="school" value="Bachelor degree" onclick = "checkAnswersPage5()"> Bachelor degree</input> <br>
+              <input class="radioDemo" type="radio" name="school" value="Master degree" onclick = "checkAnswersPage5()"> Master degree</input> <br>
+              <input class="radioDemo" type="radio" name="school" value="Doctorate degree" onclick = "checkAnswersPage5()"> Doctorate degree</input>
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>How would you rate your political orientation?</p>
+              <label><input class="radioDemoPoli" type="radio" name="poli1" value="-4" onclick = "checkAnswersPage5()"> </input><br>Extremely<br> Liberal</label> 
+              <input class="radioDemoPoli" type="radio" name="poli1" value="-3" onclick = "checkAnswersPage5()"> </input> &nbsp; &nbsp;
+              <input class="radioDemoPoli" type="radio" name="poli1" value="-2" onclick = "checkAnswersPage5()"> </input>  &nbsp; &nbsp;
+              <input class="radioDemoPoli" type="radio" name="poli1" value="-1" onclick = "checkAnswersPage5()"> </input> &nbsp; &nbsp;
+              <label id='labelModerate'><input class="radioDemoPoli" type="radio" name="poli1" value="0" onclick = "checkAnswersPage5()"></input><br>Moderate</label> &nbsp; &nbsp;
+              <input class="radioDemoPoli" type="radio" name="poli1" value="1" onclick = "checkAnswersPage5()"> </input> &nbsp; &nbsp;
+              <input class="radioDemoPoli" type="radio" name="poli1" value="2" onclick = "checkAnswersPage5()"> </input>  &nbsp; &nbsp;
+              <input class="radioDemoPoli" type="radio" name="poli1" value="3" onclick = "checkAnswersPage5()"> </input>
+              <label><input class="radioDemoPoli1" type="radio" name="poli1" value="4" onclick = "checkAnswersPage5()"> </input><br>Extremely<br> Conservative</label>
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>Please select the term that best describes your political affiliation:</p>
+              <input class="radioDemo" type="radio" name="poli2" value="Democrat" onclick = "checkAnswersPage5()"> Democrat</input> <br>
+              <input class="radioDemo" type="radio" name="poli2" value="Democrat leaning" onclick = "checkAnswersPage5()"> Democrat leaning</input> <br>
+              <input class="radioDemo" type="radio" name="poli2" value="Independent" onclick = "checkAnswersPage5()"> Independent</input> <br>
+              <input class="radioDemo" type="radio" name="poli2" value="Republican leaning" onclick = "checkAnswersPage5()"> Republican leaning</input> <br>
+              <input class="radioDemo" type="radio" name="poli2" value="Republican" onclick = "checkAnswersPage5()"> Republican</input> 
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>Please select how many people are in your household including you:</p>
+              <input class="radioDemo" type="radio" name="house" value="1" onclick = "checkAnswersPage5()"> 1</input> <br>
+              <input class="radioDemo" type="radio" name="house" value="2" onclick = "checkAnswersPage5()"> 2</input> <br>
+              <input class="radioDemo" type="radio" name="house" value="3" onclick = "checkAnswersPage5()"> 3</input> <br>
+              <input class="radioDemo" type="radio" name="house" value="4" onclick = "checkAnswersPage5()"> 4</input> <br>
+              <input class="radioDemo" type="radio" name="house" value="5" onclick = "checkAnswersPage5()"> 5</input> <br>
+              <input class="radioDemo" type="radio" name="house" value="More than 5" onclick = "checkAnswersPage5()"> More than 5</input>
+            </div>
+          
+            <div id='demoRadio'>
+              <p class='demoQuestion'>Please select your total annual household income:</p>
+              <input class="radioDemo" type="radio" name="income" value="Below $20,000" onclick = "checkAnswersPage5()"> Below $20,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$20,000 - $40,000" onclick = "checkAnswersPage5()"> $20,000 - $40,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$40,001 - $60,000" onclick = "checkAnswersPage5()"> $40,001 - $60,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$60,001 - $80,000" onclick = "checkAnswersPage5()"> $60,001 - $80,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$80,001 - $100,000" onclick = "checkAnswersPage5()"> $80,001 - $100,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$100,001 - $120,000" onclick = "checkAnswersPage5()"> $100,001 - $120,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$120,001 - $140,000" onclick = "checkAnswersPage5()"> $120,001 - $140,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="$140,001 - $160,000" onclick = "checkAnswersPage5()"> $140,001 - $160,000</input> <br>
+              <input class="radioDemo" type="radio" name="income" value="Above $160,000" onclick = "checkAnswersPage5()"> Above $160,000</input> 
+            </div> 
+            
+            <div id='demoRadio'>
+              <p class='demoQuestion'>Please select the statement that best reflects your belief on climate change:</p>
+              <input class="radioDemo" type="radio" name="climate" value="1" onclick = "checkAnswersPage5()"> I'm very certain that human-caused global warming is happening, and I'm very worried about it.</input> <br><br>
+              <input class="radioDemo" type="radio" name="climate" value="2" onclick = "checkAnswersPage5()"> I'm moderately certain that human-caused global warming is happening, and I'm somewhat worried about it.</input> <br><br>
+              <input class="radioDemo" type="radio" name="climate" value="3" onclick = "checkAnswersPage5()"> I suspect that global warming is happening, and although I'm not certain if it is human-caused or not, I am a little worried about it.</input> <br><br>
+              <input class="radioDemo" type="radio" name="climate" value="4" onclick = "checkAnswersPage5()"> I really haven't thought much about global warming, so I'm not sure what to think about it.</input> <br><br>
+              <input class="radioDemo" type="radio" name="climate" value="5" onclick = "checkAnswersPage5()"> I suspect that global warming is not happening, or isn't human-caused, but if it is, I'm fairly sure that it won't be a problem during the next several decades.</input> <br><br>
+              <input class="radioDemo" type="radio" name="climate" value="6" onclick = "checkAnswersPage5()"> I'm moderately or very certain that global warming is not happening, or if it is, that it isn't human-caused, and that it isn't a problem.</input> 
+            </div>
+
+            <br>
+            <a href='javascript:showLast()' id='showLastB' class='button'>Next</a>
+            <br>
+          </div>
+          
+          <div id='lastPage'>
+          <br>
+          <p><Strong>Done! Thank you for your participation. <br>
+            Please submit the study using the button below. <br>
+            Feel free to leave a comment below.
+          </strong> </p>
+          <p> Were the instructions clear? Any technical issues?<br> Any comments or questions are welcome!</p>
+          <p>Once you click submit, you will be provided with the Mturk code.</p>
+          <textarea id="commentBox" rows=4 cols=40 placeholder="Enter your comments here..."></textarea>
+          <br>
+          <br>
+          <a href='javascript:submitData("data/")' id='finishExperiment' class='button'> Submit results</a>
+          </div>
+
+          <div id='mturkCode'>
+            <br>
+            <p><strong>Thank you for your participation! <br>
+            Please cody as paste the following code to Mturk:</strong></p>
+          </div>
+
+    </body>
+
+</html>
+
+<script>
+    // <!--javascript for the bubbleView-->
+    //set up the spotlight
+    window.addEventListener("load", eventWindowLoaded, false);
+    
+    var Debugger = function() {};
+    
+    Debugger.log = function(message) {
+      try {
+        console.log(message);
+      } catch (exception) {
+        return;
+      }
+    };
+    
+    function eventWindowLoaded() {
+      canvasAppDemo();
+    }
+    
+    function canvasAppDemo() {
+      Debugger.log("Drawing Canvas");
+    
+      var canvas = document.getElementById('canvasTry');
+      var ctx = canvas.getContext("2d");
+    
+      // set to the width and height of the graph
+      var w = (canvas.width = 300);
+      var h = (canvas.height = 200);
+    
+      function reOffset() {
+        var BB = canvas.getBoundingClientRect();
+        offsetX = BB.left;
+        offsetY = BB.top;
+      }
+    
+      var offsetX, offsetY;
+      reOffset();
+    
+      window.onscroll = function(e) {
+        reOffset();
+      };
+    
+      window.onresize = function(e) {
+        reOffset();
+      };
+    
+      canvas.addEventListener("mousemove", mouseMove, false);
+      canvas.addEventListener("touchmove", mouseMove, false);
+    
+      function draw(cx, cy, radius) {
+        ctx.save();
+        ctx.clearRect(0, 0, w, h);
+    
+        //radialGradient make the transition between one circle to another cirle
+        //it help to smoothly transfer from one location to another location  
+        var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
+    
+        radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
+        radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
+        
+        ctx.beginPath();
+    
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, w, h);
+    
+        ctx.globalCompositeOperation = "destination-out";
+    
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = radialGradient;
+        ctx.fill();
+    
+        ctx.restore();
+      }
+    
+      function mouseMove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        mouseX = parseInt(e.clientX - offsetX);
+        mouseY = parseInt(e.clientY - offsetY);
+          
+        //set the size of revealing circle
+        draw(mouseX, mouseY, 20); 
+      }
+      //draw the initial spotlight   
+      draw(w / 2, h / 2, 20);
+    }
+
+    // canvas for the experimental conditons: climate and neutral 
+    //set up the spotlight
+    window.addEventListener("load", eventWindowLoadedClimate, false);
+
+    var Debugger = function() {};
+
+    Debugger.log = function(message) {
+      try {
+        console.log(message);
+      } catch (exception) {
+        return;
+      }
+    };
+
+    function eventWindowLoadedClimate() {
+      canvasAppClimate();
+    }
+    
+    //create an empty arrays for the mouse position
+    esti_coord = new Array();
+    
+    function canvasAppClimate() {
+      Debugger.log("Drawing Canvas");
+
+      var canvas = document.getElementById('canvasClimate');
+      var ctx = canvas.getContext("2d");
+
+      // var w = (canvas.width = window.innerWidth);
+      // var h = (canvas.height = window.innerHeight);
+
+      // set to the width and height of the graph
+      var w = (canvas.width = 836);
+      var h = (canvas.height = 450);
+
+      function reOffset() {
+        var BB = canvas.getBoundingClientRect();
+        offsetX = BB.left;
+        offsetY = BB.top;
+      }
+
+      var offsetX, offsetY;
+      reOffset();
+
+      window.onscroll = function(e) {
+        reOffset();
+      };
+
+      window.onresize = function(e) {
+        reOffset();
+      };
+
+      canvas.addEventListener("mousemove", mouseMove, false);
+      canvas.addEventListener("touchmove", mouseMove, false);
+
+      function draw(cx, cy, radius) {
+        ctx.save();
+        ctx.clearRect(0, 0, w, h);
+
+        //radialGradient make the transition between one circle to another cirle
+        //it help to smoothly transfer from one location to another location  
+        var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
+
+        radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
+        radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
+        
+        //Add the shadow contour around the circle  
+        //radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+        ctx.beginPath();
+
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.globalCompositeOperation = "destination-out";
+
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = radialGradient;
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      function mouseMove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        mouseX = parseInt(e.clientX - offsetX);
+        mouseY = parseInt(e.clientY - offsetY);
+        var timepermove = new Date().getTime();
+
+        //set the size of revealing circle
+        draw(mouseX, mouseY, 40); 
+
+        //record mouseX and mouseY
+        esti_coord.push(mouseX, mouseY, timepermove);
+
+        console.log(esti_coord);
+        document.formestigraph.estigraphvar.value = esti_coord;
+
+        var timeElapse = esti_coord[esti_coord.length - 1] - esti_coord[2];
+        document.formestigraph.estigraphtime.value = timeElapse;
+      }
+      //draw the initial spotlight   
+      draw(w / 2, h / 2, 40);
+    }
+
+    // NEUTRAL 
+     //set up the spotlight
+window.addEventListener("load", eventWindowLoadedNeutral, false);
+
+var Debugger = function() {};
+
+Debugger.log = function(message) {
+  try {
+    console.log(message);
+  } catch (exception) {
+    return;
+  }
+};
+
+function eventWindowLoadedNeutral() {
+  canvasAppNeutral();
+}
+
+//create an empty arrays for the mouse position
+esti_coord = new Array();
+
+function canvasAppNeutral() {
+  Debugger.log("Drawing Canvas");
+
+  var canvas = document.getElementById("canvasNeutral");
+  var ctx = canvas.getContext("2d");
+
+  // var w = (canvas.width = window.innerWidth);
+  // var h = (canvas.height = window.innerHeight);
+
+  // set to the width and height of the graph
+  var w = (canvas.width = 836);
+  var h = (canvas.height = 450);
+
+  function reOffset() {
+    var BB = canvas.getBoundingClientRect();
+    offsetX = BB.left;
+    offsetY = BB.top;
+  }
+
+  var offsetX, offsetY;
+  reOffset();
+
+  window.onscroll = function(e) {
+    reOffset();
+  };
+
+  window.onresize = function(e) {
+    reOffset();
+  };
+
+  canvas.addEventListener("mousemove", mouseMove, false);
+  canvas.addEventListener("touchmove", mouseMove, false);
+
+  function draw(cx, cy, radius) {
+    ctx.save();
+    ctx.clearRect(0, 0, w, h);
+
+    //radialGradient make the transition between one circle to another cirle
+    //it help to smoothly transfer from one location to another location  
+    var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
+
+    radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
+    radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
+    
+    //Add the shadow contour around the circle  
+    //radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+    ctx.beginPath();
+
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.globalCompositeOperation = "destination-out";
+
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = radialGradient;
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function mouseMove(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    mouseX = parseInt(e.clientX - offsetX);
+    mouseY = parseInt(e.clientY - offsetY);
+    var timepermove = new Date().getTime();
+
+    //set the size of revealing circle
+    draw(mouseX, mouseY, 40); 
+
+    //record mouseX and mouseY
+    esti_coord.push(mouseX, mouseY, timepermove);
+
+    console.log(esti_coord);
+    document.formestigraph.estigraphvar.value = esti_coord;
+
+    
+    var timeElapse = esti_coord[esti_coord.length - 1] - esti_coord[2];
+    document.formestigraph.estigraphtime.value = timeElapse;
+
+  }
+  //draw the initial spotlight   
+  draw(w / 2, h / 2, 40);
+}
+   
+    
+    // js for the stuff that is not bbv related 
+    // hide everything except for the first page aka the id= introInstrucstions page 
+    $('#introPage').show();
+    $('#introInstructions').hide();
+    $('#eiInstructions').hide();
+    $('#stimClimate').hide();
+    $('#stimNeutral').hide();
+    $('#aboutQuestion').hide();
+    $('#introQuestions').hide();
+    $('#questionsEI').hide();
+    $('#showQuestionB1').hide(); // button
+    $('#questionEI2').hide(); 
+    $('#showQuestionB2').hide(); // button
+    $('#questionEI3').hide();
+    $('#showQuestionB3').hide(); // button 
+    $('#questionEI4').hide();
+    $('#showQuestionB4').hide(); //button 
+    $('#drawClimate').hide();
+    $('#drawNeutral').hide();
+    $('#drawNoGraph').hide();
+    $('#demographic').hide();
+    $('#showLastB').hide(); // button
+    $('#lastPage').hide();
+    $('#mturkCode').hide();
+    
+    // experiment information 
+    var experimentName = 'graph1';
+    var experimentVersion = 'v002';
+
+    
+    // other global variables
+    let startTime = currentTime();
+
+    
+    
+    conditionArray = new Array();
+    conditionArray[0] = '#stimClimate';
+    conditionArray[1] = '#stimNeutral';
+    conditionArray[2] = '#stimNoGraph';
+    
+    let num =  Math.floor(Math.random() * 3);
+    let cond = conditionArray[num];
+    
+    function showStimInstructions() {
+      if (cond == conditionArray[0]) {
+        $('#introInstructions').show();
+        $('#introPage').hide();
+        canvasAppDemo();
+      } else if (cond == conditionArray[1]) {
+        $('#introInstructions').show();
+        $('#introPage').hide();
+        canvasAppDemo();
+      } else {
+        $('#eiInstructions').show();
+        $('#introPage').hide();
+      }
+    }
+    
+    function checkAnswers1() {
+      if (document.getElementById("trial").value.toUpperCase() == "TRIAL") {
+        if (cond == conditionArray[0]) {
+          $('#stimClimate').show();
+          $('#introInstructions').hide();
+          canvasAppClimate();
+        } else if (cond == conditionArray[1]) {
+          $('#stimNeutral').show();
+          $('#introInstructions').hide();
+          canvasAppNeutral();
+        } 
+      } else {
+        alert("Sorry, you typed the wrong word.");
+          return false;
+      }
+    }
+    
+    function showIntroQuestions() {
+      $('#introQuestions').show();
+      $('#eiInstructions').hide();
+    }
+    
+    function showAbout() {
+        if (cond == conditionArray[0]) {
+            $('#stimClimate').hide();
+            $('#aboutQuestion').show();
+        } else if (cond == conditionArray[1]) {
+            $('#stimNeutral').hide();
+            $('#aboutQuestion').show()
+        }  
+    }
+
+    function showIntroEI() {
+      var val = document.getElementById("commentBoxQuestion").value;
+      if (val == "") {
+        alert("Please provide your answer.");
+        return false;
+      } else {
+        $('#aboutQuestion').hide();
+        $('#introQuestions').show();
+      }
+    }
+    
+    function showEIQuestions() {
+      $('#introQuestions').hide();
+      $('#questionsEI').show();
+    }
+    
+    function checkAnswersPage1(){
+      if($('input[type=radio]:checked').length == 8) {
+        $('#showQuestionB1').show();
+      }
+    }
+    
+    function showQPage2() {
+      $('#questionsEI').hide();
+      $('#questionEI2').show();
+    }
+    
+    function checkAnswersPage2(){
+      if($('input[type=radio]:checked').length == 17) {
+        $('#showQuestionB2').show();
+      }
+    }
+    
+    function showQPage3() {
+      $('#questionEI2').hide();
+      $('#questionEI3').show();
+    }
+    
+    function checkAnswersPage3(){
+      if($('input[type=radio]:checked').length == 26) {
+        $('#showQuestionB3').show();
+      }
+    }
+    
+    function showQPage4() {
+      $('#questionEI3').hide();
+      $('#questionEI4').show();
+    }
+    
+    function checkAnswersPage4() {
+      if($('input[type=radio]:checked').length == 35) {
+        $('#showQuestionB4').show();
+      }
+    }
+    
+    function showDraw() {
+      if (cond == conditionArray[0]) {
+        $('#questionEI4').hide();
+        $('#drawClimate').show();
+        showCanvas();
+      } else if (cond == conditionArray[1]) {
+        $('#questionEI4').hide();
+        $('#drawNeutral').show();
+        showCanvas();
+      } else {
+        $('#questionEI4').hide();
+        $('#drawNoGraph').show();
+        showCanvas();
+      }
+    }
+
+    function showCanvas() {
+      if (cond == conditionArray[0]) {
+        prepareSimpleCanvas('canvasSimpleDiv');
+      } else if (cond == conditionArray[1]) {
+        prepareSimpleCanvas('canvasSimpleDiv2');
+      } else {
+        prepareSimpleCanvas('canvasSimpleDiv3');
+      }
+    }
+    
+    function showDemo() {
+      if (cond == conditionArray[0]) {
+        $('#drawClimate').hide();
+        $('#demographic').show();
+      } else if (cond == conditionArray[1]) {
+        $('#drawNeutral').hide();
+        $('#demographic').show();
+      } else {
+        $('#drawNoGraph').hide();
+        $('#demographic').show();
+      }
+    }
+    
+    function checkAnswersPage5() {
+      if($('input[type=radio]:checked').length == 44) {
+        $('#showLastB').show();
+        assignExperimentInfo();
+      }
+    }
+    
+    function showLast() {
+      $('#demographic').hide();
+      $('#lastPage').show();
+
+      assignExperimentInfo();
+    }
+
+    function currentTime() {
+      return performance.now();
+    }
+
+ 
+
+    function assignExperimentInfo() {
+      responses['experimentName'] = experimentName;
+      responses['experimentVersion'] = experimentVersion;
+      responses['startTime'] = Math.round((currentTime() - startTime) * 10) / 10;
+      responses['condition'] = cond;
+
+      // emotional intelligence questionnaire and Attention check 
+      responses['eiQuestion1'] = document.querySelector('input[name="q1"]:checked').value;
+      responses['eiQuestion2'] = document.querySelector('input[name="q2"]:checked').value;
+      responses['eiQuestion3'] = document.querySelector('input[name="q3"]:checked').value;
+      responses['eiQuestion4'] = document.querySelector('input[name="q4"]:checked').value;
+      responses['eiQuestion5'] = document.querySelector('input[name="q5"]:checked').value;
+      responses['eiQuestion6'] = document.querySelector('input[name="q6"]:checked').value;
+      responses['eiQuestion7'] = document.querySelector('input[name="q7"]:checked').value;
+      responses['eiQuestion8'] = document.querySelector('input[name="q8"]:checked').value;
+      // page 2/4 of the EI test 
+      responses['eiQuestion9'] = document.querySelector('input[name="q9"]:checked').value;
+      responses['eiQuestion10'] = document.querySelector('input[name="q10"]:checked').value;
+      responses['eiQuestion11'] = document.querySelector('input[name="q11"]:checked').value;
+      responses['eiQuestion12'] = document.querySelector('input[name="q12"]:checked').value;
+      responses['eiQuestion13'] = document.querySelector('input[name="q13"]:checked').value;
+      responses['eiQuestion14'] = document.querySelector('input[name="q14"]:checked').value;
+      responses['eiQuestion15'] = document.querySelector('input[name="a1"]:checked').value;
+      responses['eiQuestion16'] = document.querySelector('input[name="q16"]:checked').value;
+      responses['eiQuestion17'] = document.querySelector('input[name="q17"]:checked').value;      
+      // page 3/4 of the EI test 
+      responses['eiQuestion18'] = document.querySelector('input[name="q18"]:checked').value;      
+      responses['eiQuestion19'] = document.querySelector('input[name="q19"]:checked').value;      
+      responses['eiQuestion20'] = document.querySelector('input[name="a2"]:checked').value;      
+      responses['eiQuestion21'] = document.querySelector('input[name="q21"]:checked').value;      
+      responses['eiQuestion22'] = document.querySelector('input[name="q22"]:checked').value;      
+      responses['eiQuestion23'] = document.querySelector('input[name="q23"]:checked').value;      
+      responses['eiQuestion24'] = document.querySelector('input[name="q24"]:checked').value;      
+      responses['eiQuestion25'] = document.querySelector('input[name="q25"]:checked').value;      
+      responses['eiQuestion26'] = document.querySelector('input[name="q26"]:checked').value;   
+      // page 4/4 of the EI test 
+      responses['eiQuestion27'] = document.querySelector('input[name="q27"]:checked').value;   
+      responses['eiQuestion28'] = document.querySelector('input[name="q28"]:checked').value;   
+      responses['eiQuestion29'] = document.querySelector('input[name="q29"]:checked').value;   
+      responses['eiQuestion30'] = document.querySelector('input[name="q30"]:checked').value;   
+      responses['eiQuestion31'] = document.querySelector('input[name="q31"]:checked').value;   
+      responses['eiQuestion32'] = document.querySelector('input[name="q32"]:checked').value;   
+      responses['eiQuestion33'] = document.querySelector('input[name="q33"]:checked').value;   
+      responses['eiQuestion34'] = document.querySelector('input[name="q34"]:checked').value;   
+      responses['eiQuestion35'] = document.querySelector('input[name="q35"]:checked').value;   
+      // demographic information 
+      responses['gender'] = document.querySelector('input[name="gender"]:checked').value;
+      responses['age'] = document.querySelector('input[name="age"]:checked').value;
+      responses['race'] = document.querySelector('input[name="race"]:checked').value;
+      responses['educationLevel'] = document.querySelector('input[name="school"]:checked').value;
+      responses['poliString'] = document.querySelector('input[name="poli1"]:checked').value;
+      responses['poliInt'] = document.querySelector('input[name="poli2"]:checked').value;
+      responses['peopleHouse'] = document.querySelector('input[name="house"]:checked').value;
+      responses['income'] = document.querySelector('input[name="income"]:checked').value;
+      responses['climateConcernLevel'] = document.querySelector('input[name="climate"]:checked').value;
+    }
+
+    //   // hide and show pages 
+    //   $('#lastPage').hide();
+    //   $('#mturkCode').show();
+    // }
+
+    function submitData(outDir) {
+      var val = document.getElementById("commentBox").value;
+      if (val == "") {
+        alert("Please provide your answer.");
+        return false;
+      } else {
+      // hide and show pages 
+      $('#lastPage').hide();
+      $('#mturkCode').show();
+
+      responses['totalTime'] = Math.round((currentTime() - startTime) * 10) / 10;
+      // turn data string from array
+      var dataString = JSON.stringify(responses);
+      }
+    }
+
+    </script>
+    
+    <!--CSS-->
+    <style>
+    body {
+      font-family: Helvetica,Arial;
+      font-size: 14pt;
+      height: 100%;
+      margin: 10 auto;
+    }
+    
+    #introInstructions, #introPage, #eiInstructions, #stimClimate, #stimNeutral, #aboutQuestion, 
+    #introQuestions, #questionsEI, #questionEI2, #questionEI3, #questionEI4, #drawClimate, 
+    #drawNeutral, #drawNoGraph, #demographic, #lastPage, #mturkCode {
+      display:block;
+      max-width: 80%;
+      margin: 0 auto;
+      margin-top: 0px;
+      text-align: center;
+      margin-bottom: -1.2em;
+    }
+    
+    #title {
+      font-size: 18pt;
+      text-align: center;
+      margin: 0 auto;
+    }
+    
+    #canvasTry{
+        margin: auto;
+        display: block;
+        cursor: none;
+        background: url('images/trial.png') no-repeat;
+    }
+
+    #canvasClimate{
+        margin: auto;
+        display: block;
+        cursor: none;
+        background: url('images/full2.png') no-repeat;
+    }
+
+    #canvasNeutral{
+        margin: auto;
+        display: block;
+        cursor: none;
+        background: url('images/full2.png') no-repeat;
+    }
+    
+    #showStartB, #showQuestionB1, #showQuestionB2, #showQuestionB3, #showQuestionB4, #showLastB, #finishExperiment {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      color: black;
+      font-size:14pt;
+      border: 3px outset gray;
+      padding: 0px;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      width: 150px;
+      margin-top:0px;
+      margin-bottom:0px;
+      border-radius: 8px;
+      transition-duration: 0.4s;
+    }
+    
+    .progress {
+      text-align: center;
+      display: none;
+      height: 15px;
+    }
+    
+    #progressContainer {
+      text-align: center;
+      display: none;
+    }
+    
+    #progressText {
+      font-size: 14pt;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    
+    #progressOutline {
+      display: inline-block;
+      background: white;
+      border: 3px solid black;
+      width: 100px;
+      margin: 5 auto;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    
+    #progressBar {
+      background: #4CAF50;
+      width: 0px;
+      margin-bottom: 10px;
+    }
+    
+    .question {
+      text-align:left;
+      font-weight: bold;
+      padding-top: 30px;
+      margin-left: 33%;
+      margin-right: 33%;
+    }
+    
+    .demoQuestion {
+      /* position: relative; right: 160px; */
+      font-weight: bold;
+      padding-top: 20px;
+    }
+    
+    #demoRadio {
+      text-align: left;
+      margin-left: 33%;
+      margin-right: 25%;
+    }
+    
+    label {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      top: 38px;
+      padding-bottom: 30px;
+    }
+    
+    #labelModerate {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      top: 15px;
+    }
+
+    #canvasSimple{
+	    cursor: crosshair;
+    }
+    
+    </style>
