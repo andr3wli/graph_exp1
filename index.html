@@ -5,7 +5,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <script type="text/javascript" src="js/simplecanvas.js"></script>
+        <script type="text/javascript" src="js/bubbleview.js"></script>
     </head>
+
     <body>
         <div id='introPage'>
             <p id="title"><strong>Welcome to our experiment!</strong></p>
@@ -646,306 +648,7 @@
 </html>
 
 <script>
-    // <!--javascript for the bubbleView-->
-    //set up the spotlight
-    window.addEventListener("load", eventWindowLoaded, false);
-    
-    var Debugger = function() {};
-    
-    Debugger.log = function(message) {
-      try {
-        console.log(message);
-      } catch (exception) {
-        return;
-      }
-    };
-    
-    function eventWindowLoaded() {
-      canvasAppDemo();
-    }
-    
-    function canvasAppDemo() {
-      Debugger.log("Drawing Canvas");
-    
-      var canvas = document.getElementById('canvasTry');
-      var ctx = canvas.getContext("2d");
-    
-      // set to the width and height of the graph
-      var w = (canvas.width = 300);
-      var h = (canvas.height = 200);
-    
-      function reOffset() {
-        var BB = canvas.getBoundingClientRect();
-        offsetX = BB.left;
-        offsetY = BB.top;
-      }
-    
-      var offsetX, offsetY;
-      reOffset();
-    
-      window.onscroll = function(e) {
-        reOffset();
-      };
-    
-      window.onresize = function(e) {
-        reOffset();
-      };
-    
-      canvas.addEventListener("mousemove", mouseMove, false);
-      canvas.addEventListener("touchmove", mouseMove, false);
-    
-      function draw(cx, cy, radius) {
-        ctx.save();
-        ctx.clearRect(0, 0, w, h);
-    
-        //radialGradient make the transition between one circle to another cirle
-        //it help to smoothly transfer from one location to another location  
-        var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
-    
-        radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
-        radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
-        
-        ctx.beginPath();
-    
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, w, h);
-    
-        ctx.globalCompositeOperation = "destination-out";
-    
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = radialGradient;
-        ctx.fill();
-    
-        ctx.restore();
-      }
-    
-      function mouseMove(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    
-        mouseX = parseInt(e.clientX - offsetX);
-        mouseY = parseInt(e.clientY - offsetY);
-          
-        //set the size of revealing circle
-        draw(mouseX, mouseY, 20); 
-      }
-      //draw the initial spotlight   
-      draw(w / 2, h / 2, 20);
-    }
-
-    // canvas for the experimental conditons: climate and neutral 
-    //set up the spotlight
-    window.addEventListener("load", eventWindowLoadedClimate, false);
-
-    var Debugger = function() {};
-
-    Debugger.log = function(message) {
-      try {
-        console.log(message);
-      } catch (exception) {
-        return;
-      }
-    };
-
-    function eventWindowLoadedClimate() {
-      canvasAppClimate();
-    }
-    
-    //create an empty arrays for the mouse position
-    esti_coord = new Array();
-    
-    function canvasAppClimate() {
-      Debugger.log("Drawing Canvas");
-
-      var canvas = document.getElementById('canvasClimate');
-      var ctx = canvas.getContext("2d");
-
-      // var w = (canvas.width = window.innerWidth);
-      // var h = (canvas.height = window.innerHeight);
-
-      // set to the width and height of the graph
-      var w = (canvas.width = 836);
-      var h = (canvas.height = 450);
-
-      function reOffset() {
-        var BB = canvas.getBoundingClientRect();
-        offsetX = BB.left;
-        offsetY = BB.top;
-      }
-
-      var offsetX, offsetY;
-      reOffset();
-
-      window.onscroll = function(e) {
-        reOffset();
-      };
-
-      window.onresize = function(e) {
-        reOffset();
-      };
-
-      canvas.addEventListener("mousemove", mouseMove, false);
-      canvas.addEventListener("touchmove", mouseMove, false);
-
-      function draw(cx, cy, radius) {
-        ctx.save();
-        ctx.clearRect(0, 0, w, h);
-
-        //radialGradient make the transition between one circle to another cirle
-        //it help to smoothly transfer from one location to another location  
-        var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
-
-        radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
-        radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
-        
-        //Add the shadow contour around the circle  
-        //radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-        ctx.beginPath();
-
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.globalCompositeOperation = "destination-out";
-
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = radialGradient;
-        ctx.fill();
-
-        ctx.restore();
-      }
-
-      function mouseMove(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        mouseX = parseInt(e.clientX - offsetX);
-        mouseY = parseInt(e.clientY - offsetY);
-        var timepermove = new Date().getTime();
-
-        //set the size of revealing circle
-        draw(mouseX, mouseY, 40); 
-
-        //record mouseX and mouseY
-        esti_coord.push(mouseX, mouseY, timepermove);
-
-        console.log(esti_coord);
-        document.formestigraph.estigraphvar.value = esti_coord;
-
-        var timeElapse = esti_coord[esti_coord.length - 1] - esti_coord[2];
-        document.formestigraph.estigraphtime.value = timeElapse;
-      }
-      //draw the initial spotlight   
-      draw(w / 2, h / 2, 40);
-    }
-
-    // NEUTRAL 
-     //set up the spotlight
-window.addEventListener("load", eventWindowLoadedNeutral, false);
-
-var Debugger = function() {};
-
-Debugger.log = function(message) {
-  try {
-    console.log(message);
-  } catch (exception) {
-    return;
-  }
-};
-
-function eventWindowLoadedNeutral() {
-  canvasAppNeutral();
-}
-
-//create an empty arrays for the mouse position
-esti_coord = new Array();
-
-function canvasAppNeutral() {
-  Debugger.log("Drawing Canvas");
-
-  var canvas = document.getElementById("canvasNeutral");
-  var ctx = canvas.getContext("2d");
-
-  // var w = (canvas.width = window.innerWidth);
-  // var h = (canvas.height = window.innerHeight);
-
-  // set to the width and height of the graph
-  var w = (canvas.width = 836);
-  var h = (canvas.height = 450);
-
-  function reOffset() {
-    var BB = canvas.getBoundingClientRect();
-    offsetX = BB.left;
-    offsetY = BB.top;
-  }
-
-  var offsetX, offsetY;
-  reOffset();
-
-  window.onscroll = function(e) {
-    reOffset();
-  };
-
-  window.onresize = function(e) {
-    reOffset();
-  };
-
-  canvas.addEventListener("mousemove", mouseMove, false);
-  canvas.addEventListener("touchmove", mouseMove, false);
-
-  function draw(cx, cy, radius) {
-    ctx.save();
-    ctx.clearRect(0, 0, w, h);
-
-    //radialGradient make the transition between one circle to another cirle
-    //it help to smoothly transfer from one location to another location  
-    var radialGradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, radius);
-
-    radialGradient.addColorStop(0, "rgba(0, 0, 0, 1)");
-    radialGradient.addColorStop(0.65, "rgba(0, 0, 0, 1)");
-    
-    //Add the shadow contour around the circle  
-    //radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-    ctx.beginPath();
-
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, w, h);
-
-    ctx.globalCompositeOperation = "destination-out";
-
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = radialGradient;
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function mouseMove(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    mouseX = parseInt(e.clientX - offsetX);
-    mouseY = parseInt(e.clientY - offsetY);
-    var timepermove = new Date().getTime();
-
-    //set the size of revealing circle
-    draw(mouseX, mouseY, 40); 
-
-    //record mouseX and mouseY
-    esti_coord.push(mouseX, mouseY, timepermove);
-
-    console.log(esti_coord);
-    document.formestigraph.estigraphvar.value = esti_coord;
-
-    
-    var timeElapse = esti_coord[esti_coord.length - 1] - esti_coord[2];
-    document.formestigraph.estigraphtime.value = timeElapse;
-
-  }
-  //draw the initial spotlight   
-  draw(w / 2, h / 2, 40);
-}
+   
    
     
     // js for the stuff that is not bbv related 
@@ -1232,143 +935,143 @@ function canvasAppNeutral() {
 
     </script>
     
-    <!--CSS-->
-    <style>
-    body {
-      font-family: Helvetica,Arial;
-      font-size: 14pt;
-      height: 100%;
-      margin: 10 auto;
-    }
+       <!--CSS-->
+       <style>
+        body {
+          font-family: Helvetica,Arial;
+          font-size: 14pt;
+          height: 100%;
+          margin: 10 auto;
+        }
+        
+        #introInstructions, #introPage, #eiInstructions, #stimClimate, #stimNeutral, #aboutQuestion, 
+        #introQuestions, #questionsEI, #questionEI2, #questionEI3, #questionEI4, #drawClimate, 
+        #drawNeutral, #drawNoGraph, #demographic, #lastPage, #mturkCode {
+          display:block;
+          max-width: 80%;
+          margin: 0 auto;
+          margin-top: 0px;
+          text-align: center;
+          margin-bottom: -1.2em;
+        }
+        
+        #title {
+          font-size: 18pt;
+          text-align: center;
+          margin: 0 auto;
+        }
+        
+        #canvasTry{
+            margin: auto;
+            display: block;
+            cursor: none;
+            background: url('images/trial.png') no-repeat;
+        }
     
-    #introInstructions, #introPage, #eiInstructions, #stimClimate, #stimNeutral, #aboutQuestion, 
-    #introQuestions, #questionsEI, #questionEI2, #questionEI3, #questionEI4, #drawClimate, 
-    #drawNeutral, #drawNoGraph, #demographic, #lastPage, #mturkCode {
-      display:block;
-      max-width: 80%;
-      margin: 0 auto;
-      margin-top: 0px;
-      text-align: center;
-      margin-bottom: -1.2em;
-    }
+        #canvasClimate{
+            margin: auto;
+            display: block;
+            cursor: none;
+            background: url('images/full2.png') no-repeat;
+        }
     
-    #title {
-      font-size: 18pt;
-      text-align: center;
-      margin: 0 auto;
-    }
+        #canvasNeutral{
+            margin: auto;
+            display: block;
+            cursor: none;
+            background: url('images/full2.png') no-repeat;
+        }
+        
+        #showStartB, #showQuestionB1, #showQuestionB2, #showQuestionB3, #showQuestionB4, #showLastB, #finishExperiment {
+          display: flex;
+          justify-content: center;
+          margin: 0 auto;
+          color: black;
+          font-size:14pt;
+          border: 3px outset gray;
+          padding: 0px;
+          text-decoration: none;
+          font-weight: bold;
+          position: relative;
+          width: 150px;
+          margin-top:0px;
+          margin-bottom:0px;
+          border-radius: 8px;
+          transition-duration: 0.4s;
+        }
+        
+        .progress {
+          text-align: center;
+          display: none;
+          height: 15px;
+        }
+        
+        #progressContainer {
+          text-align: center;
+          display: none;
+        }
+        
+        #progressText {
+          font-size: 14pt;
+          color: black;
+          font-weight: bold;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+        
+        #progressOutline {
+          display: inline-block;
+          background: white;
+          border: 3px solid black;
+          width: 100px;
+          margin: 5 auto;
+          margin-bottom: 10px;
+          border-radius: 5px;
+        }
+        
+        #progressBar {
+          background: #4CAF50;
+          width: 0px;
+          margin-bottom: 10px;
+        }
+        
+        .question {
+          text-align:left;
+          font-weight: bold;
+          padding-top: 30px;
+          margin-left: 33%;
+          margin-right: 33%;
+        }
+        
+        .demoQuestion {
+          /* position: relative; right: 160px; */
+          font-weight: bold;
+          padding-top: 20px;
+        }
+        
+        #demoRadio {
+          text-align: left;
+          margin-left: 33%;
+          margin-right: 25%;
+        }
+        
+        label {
+          display: inline-block;
+          text-align: center;
+          position: relative;
+          top: 38px;
+          padding-bottom: 30px;
+        }
+        
+        #labelModerate {
+          display: inline-block;
+          text-align: center;
+          position: relative;
+          top: 15px;
+        }
     
-    #canvasTry{
-        margin: auto;
-        display: block;
-        cursor: none;
-        background: url('images/trial.png') no-repeat;
-    }
-
-    #canvasClimate{
-        margin: auto;
-        display: block;
-        cursor: none;
-        background: url('images/full2.png') no-repeat;
-    }
-
-    #canvasNeutral{
-        margin: auto;
-        display: block;
-        cursor: none;
-        background: url('images/full2.png') no-repeat;
-    }
-    
-    #showStartB, #showQuestionB1, #showQuestionB2, #showQuestionB3, #showQuestionB4, #showLastB, #finishExperiment {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto;
-      color: black;
-      font-size:14pt;
-      border: 3px outset gray;
-      padding: 0px;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      width: 150px;
-      margin-top:0px;
-      margin-bottom:0px;
-      border-radius: 8px;
-      transition-duration: 0.4s;
-    }
-    
-    .progress {
-      text-align: center;
-      display: none;
-      height: 15px;
-    }
-    
-    #progressContainer {
-      text-align: center;
-      display: none;
-    }
-    
-    #progressText {
-      font-size: 14pt;
-      color: black;
-      font-weight: bold;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    
-    #progressOutline {
-      display: inline-block;
-      background: white;
-      border: 3px solid black;
-      width: 100px;
-      margin: 5 auto;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-    
-    #progressBar {
-      background: #4CAF50;
-      width: 0px;
-      margin-bottom: 10px;
-    }
-    
-    .question {
-      text-align:left;
-      font-weight: bold;
-      padding-top: 30px;
-      margin-left: 33%;
-      margin-right: 33%;
-    }
-    
-    .demoQuestion {
-      /* position: relative; right: 160px; */
-      font-weight: bold;
-      padding-top: 20px;
-    }
-    
-    #demoRadio {
-      text-align: left;
-      margin-left: 33%;
-      margin-right: 25%;
-    }
-    
-    label {
-      display: inline-block;
-      text-align: center;
-      position: relative;
-      top: 38px;
-      padding-bottom: 30px;
-    }
-    
-    #labelModerate {
-      display: inline-block;
-      text-align: center;
-      position: relative;
-      top: 15px;
-    }
-
-    #canvasSimple{
-	    cursor: crosshair;
-    }
-    
-    </style>
+        #canvasSimple{
+          cursor: crosshair;
+        }
+        
+        </style>
